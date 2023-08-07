@@ -4,9 +4,11 @@ import com.example.domain.entity.Product;
 import com.example.domain.entity.ProductStatus;
 import com.example.domain.repository.ProductRepository;
 import com.example.presentation.vo.ProductDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,14 +18,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class ProductApplicationServiceTest {
+  @Mock
+  private ProductRepository repository;
+  @InjectMocks
   private ProductApplicationService service;
-  private ProductRepository repository = Mockito.mock(ProductRepository.class);
-
-  @BeforeEach
-  void setUp() {
-    service = new ProductApplicationService(repository);
-  }
 
   @Test
   void getProducts() {

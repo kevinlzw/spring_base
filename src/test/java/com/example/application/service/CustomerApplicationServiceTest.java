@@ -3,25 +3,24 @@ package com.example.application.service;
 import com.example.domain.entity.Customer;
 import com.example.domain.repository.CustomerRepository;
 import com.example.presentation.vo.CustomerDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+
+@ExtendWith(MockitoExtension.class)
 public class CustomerApplicationServiceTest {
-
-  private CustomerApplicationService service;
+  @Mock
   private CustomerRepository repository;
-
-  @BeforeEach
-  public void setup() {
-    repository = Mockito.mock(CustomerRepository.class);
-    service = new CustomerApplicationService(repository);
-  }
+  @InjectMocks
+  private CustomerApplicationService service;
 
   @Test
   public void testFindById() {
