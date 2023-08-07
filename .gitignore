@@ -42,3 +42,17 @@ out/
 /.gradle/configuration-cache/
 /.gradle/vcs-1/
 /build/
+.idea/dataSources.xml
+.idea/dataSources.xml
+build/tmp/compileJava/source-classes-mapping.txt
+build/resources/main/application.yml
+.idea/dataSources.xml
+.gradle/buildOutputCleanup/outputFiles.bin
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/6.8/javaCompile/taskHistory.bin
+.gradle/6.8/javaCompile/javaCompile.lock
+.gradle/6.8/fileHashes/fileHashes.lock
+.gradle/6.8/fileHashes/fileHashes.bin
+.gradle/6.8/executionHistory/executionHistory.lock
+.gradle/6.8/executionHistory/executionHistory.bin
+.gradle/6.8/executionHistory/executionHistory.bin
