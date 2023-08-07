@@ -57,3 +57,4 @@ build/resources/main/application.yml
 .gradle/6.8/executionHistory/executionHistory.bin
 .gradle/6.8/executionHistory/executionHistory.bin
 *.bin
+*.lock
