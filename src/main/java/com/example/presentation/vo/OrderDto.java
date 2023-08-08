@@ -6,13 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class OrderDto {
-  private ProductDto productDto;
+  private List<ProductDto> products;
 
   private BigDecimal totalPrice;
 
@@ -20,5 +22,5 @@ public class OrderDto {
 
   private String orderId;
 
-  private String createTime;
+  private LocalDateTime createTime;
 }

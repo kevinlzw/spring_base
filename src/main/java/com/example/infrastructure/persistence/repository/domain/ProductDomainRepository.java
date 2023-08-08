@@ -20,4 +20,9 @@ public class ProductDomainRepository implements ProductRepository {
   public List<Product> findProducts() {
     return jpaProductRepository.findAll().stream().map(mapper::toDo).collect(Collectors.toList());
   }
+
+  @Override
+  public Product findProduct(String productId) {
+    return jpaProductRepository.findById(productId).map(mapper::toDo).orElse(null);
+  }
 }

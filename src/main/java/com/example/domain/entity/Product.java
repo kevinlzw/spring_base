@@ -21,6 +21,8 @@ public class Product {
 
   private BigDecimal price;
 
+  private Integer quantity;
+
   private ProductStatus status;
 
   private LocalDateTime createTime;
