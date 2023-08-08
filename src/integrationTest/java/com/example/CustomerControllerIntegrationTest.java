@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 public class CustomerControllerIntegrationTest extends BaseIntegrationTest {
 
   @Test
-  @DataSet("datasets/customer.yml")
+  @DataSet("customer.yml")
   public void findById_should_success() {
     given().when().get("/customers/{id}", "1").then().statusCode(200);
   }
