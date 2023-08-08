@@ -12,13 +12,13 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class OrderDto {
-    private ProductDto productDto;
+  private ProductDto productDto;
 
-    private BigDecimal totalPrice;
+  private BigDecimal totalPrice;
 
-    private String orderStatus;
+  private String orderStatus;
 
-    private String orderId;
+  private String orderId;
 
-    private String createTime;
+  private String createTime;
 }
