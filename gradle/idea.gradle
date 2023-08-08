@@ -7,8 +7,8 @@ idea {
     }
 
     project {
-        jdkName = '1.8'
-        languageLevel = '1.8'
+        jdkName = '11'
+        languageLevel = '11'
 
         ipr.withXml { xmlFile ->
             // setup Git root
