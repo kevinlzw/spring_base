@@ -1,16 +1,14 @@
 package com.example;
 
-import com.example.infrastructure.persistence.repository.JpaCustomerRepository;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.database.rider.core.api.dataset.DataSet;
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 
 public class CustomerControllerIntegrationTest extends BaseIntegrationTest {
-  @Autowired
-  private JpaCustomerRepository jpaCustomerRepository;
 
   @Test
+  @DataSet("datasets/customer.yml")
   public void findById_should_success() {
     given().when().get("/customers/{id}", "1").then().statusCode(200);
   }
