@@ -5,8 +5,8 @@
 ### 技术栈
 
 - Java 11
-- Spring Boot 2.4.2
-- Gradle 6.7.1
+- Spring Boot 2.7.0
+- Gradle 6.8
 
 ### 本地依赖
 
