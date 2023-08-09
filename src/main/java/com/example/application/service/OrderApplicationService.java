@@ -1,5 +1,7 @@
 package com.example.application.service;
 
+import com.example.application.assembler.OrderDtoMapper;
+import com.example.application.assembler.ProductDtoMapper;
 import com.example.domain.entity.Order;
 import com.example.domain.entity.Product;
 import com.example.domain.repository.OrderRepository;
@@ -7,6 +9,7 @@ import com.example.domain.repository.ProductRepository;
 import com.example.presentation.vo.OrderDto;
 import com.example.presentation.vo.ProductDto;
 import lombok.AllArgsConstructor;
+import org.mapstruct.Mapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,7 +24,7 @@ public class OrderApplicationService {
     private final OrderRepository orderRepository;
 
     private final ProductRepository productRepository;
-
+    private final OrderDtoMapper mapper = OrderDtoMapper.MAPPER;
     public List<OrderDto> getOrderList(String customerId) {
 
         List<Order> orders = orderRepository.findOrders(customerId);
@@ -66,5 +69,10 @@ public class OrderApplicationService {
         return result;
 
 
+    }
+
+    public OrderDto getOrderByOrderId(String orderId) {
+
+        return mapper.toDto(orderRepository.findOrderById(orderId));
     }
 }
