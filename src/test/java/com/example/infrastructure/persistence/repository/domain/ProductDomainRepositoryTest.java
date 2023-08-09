@@ -27,7 +27,7 @@ public class ProductDomainRepositoryTest {
   private ProductDomainRepository productDomainRepository;
 
   @Test
-  public void findProductsTest() {
+  public void should_find_all_products_successfully() {
     LocalDateTime createTime = LocalDateTime.now();
     LocalDateTime updateTime = LocalDateTime.now();
     Product product = Product.builder().id("1").name("Product1").price(new BigDecimal("100.00"))
@@ -53,7 +53,7 @@ public class ProductDomainRepositoryTest {
   }
 
   @Test
-  public void findProductsByIdsTest() {
+  public void should_find_product_by_id_successfully() {
     LocalDateTime createTime = LocalDateTime.now();
     LocalDateTime updateTime = LocalDateTime.now();
     Product product = Product.builder().id("1").name("Product1").price(new BigDecimal("100.00"))

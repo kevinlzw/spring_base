@@ -2,6 +2,7 @@ package com.example.presentation.facade;
 
 import com.example.application.service.OrderApplicationService;
 import com.example.presentation.vo.OrderDto;
+import com.example.presentation.vo.SaveOrderRequestDto;
 import com.example.presentation.vo.SaveOrderResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class OrderController {
   @PostMapping
   @ResponseStatus(CREATED)
   public SaveOrderResponseDto takeOrder(
-      @RequestBody com.example.presentation.vo.SaveOrderRequestDto orderRequest) {
+      @RequestBody SaveOrderRequestDto orderRequest) {
     return orderApplicationService.takeOrder(orderRequest);
   }
 }

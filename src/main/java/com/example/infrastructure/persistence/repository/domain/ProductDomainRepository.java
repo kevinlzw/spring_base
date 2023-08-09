@@ -14,6 +14,7 @@ import static com.example.common.util.StreamUtil.processList;
 @Component
 @AllArgsConstructor
 public class ProductDomainRepository implements ProductRepository {
+
   private final JpaProductRepository jpaProductRepository;
   private final ProductDataMapper mapper = ProductDataMapper.mapper;
 
