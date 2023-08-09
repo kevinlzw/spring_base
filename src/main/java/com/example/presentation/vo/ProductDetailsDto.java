@@ -14,12 +14,12 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @Builder
-public class ProductDto {
-  private String id;
-
+public class ProductDetailsDto {
   private String name;
 
   private BigDecimal price;
+
+  private Integer quantity;
 
   private ProductStatus status;
 }

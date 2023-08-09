@@ -6,6 +6,7 @@ import com.example.domain.entity.Product;
 import com.example.domain.repository.OrderRepository;
 import com.example.domain.repository.ProductRepository;
 import com.example.presentation.vo.OrderDto;
+import com.example.presentation.vo.ProductDetailsDto;
 import com.example.presentation.vo.ProductDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,21 @@ public class OrderApplicationService {
 
     List<Order> orders = orderRepository.findOrders(customerId);
 
-    Map<String, List<ProductDto>> orderIdProductMap = orders.stream()
-        .collect(Collectors.groupingBy(Order::getOrderId, Collectors.mapping(order -> {
-          Product product = productRepository.findProduct(order.getProductId());
-          return ProductDto.builder().price(product.getPrice()).name(product.getName())
-              .quantity(order.getQuantity()).build();
-        }, Collectors.toList())));
+        Map<String, List<ProductDetailsDto>> orderIdProductMap = orders.stream()
+                .collect(Collectors.groupingBy(
+                        Order::getOrderId,
+                        Collectors.mapping(
+                                order -> {
+                                    Product product = productRepository.findProduct(order.getProductId());
+                                    return ProductDetailsDto.builder()
+                                            .price(product.getPrice())
+                                            .name(product.getName())
+                                            .quantity(order.getQuantity())
+                                            .build();
+                                },
+                                Collectors.toList()
+                        )
+                ));
 
     List<OrderDto> result = orderIdProductMap.entrySet().stream()
         .map(entry -> OrderDto.builder().orderId(entry.getKey()).products(entry.getValue())

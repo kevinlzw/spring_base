@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @Builder
 public class OrderDto {
-  private List<ProductDto> products;
+  private List<ProductDetailsDto> products;
 
   private BigDecimal totalPrice;
 
