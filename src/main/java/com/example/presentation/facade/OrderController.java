@@ -23,9 +23,9 @@ public class OrderController {
 
     private final OrderApplicationService orderApplicationService;
 
-    @GetMapping("/{id}/customerId")
+    @GetMapping("/{id}")
     public OrderDto getOrderDetails(@PathVariable String id, @RequestParam String customerId) {
-        return orderApplicationService.getOrderByOrderId(id);
+        return orderApplicationService.getOrderByOrderId(id,customerId);
     }
 
     @GetMapping("/{customerId}")
