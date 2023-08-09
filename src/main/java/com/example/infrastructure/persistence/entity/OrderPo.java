@@ -35,7 +35,7 @@ public class OrderPo {
   private String productId;
 
   @Column(name = "product_quantity")
-  private String quantity;
+  private Integer quantity;
 
   private LocalDateTime createTime = LocalDateTime.now();
 

@@ -8,7 +8,6 @@ import com.example.domain.repository.ProductRepository;
 import com.example.presentation.vo.OrderDto;
 import com.example.presentation.vo.OrderRequestDto;
 import com.example.presentation.vo.ProductDetailsDto;
-import com.example.presentation.vo.ProductDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 public class OrderApplicationService {
 
   private final OrderRepository orderRepository;
-
   private final ProductRepository productRepository;
   private final OrderDtoMapper mapper = OrderDtoMapper.MAPPER;
 
@@ -37,6 +35,7 @@ public class OrderApplicationService {
                                 order -> {
                                     Product product = productRepository.findProduct(order.getProductId());
                                     return ProductDetailsDto.builder()
+                                            .id(product.getId())
                                             .price(product.getPrice())
                                             .name(product.getName())
                                             .quantity(order.getQuantity())
