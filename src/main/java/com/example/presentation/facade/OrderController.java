@@ -3,10 +3,7 @@ package com.example.presentation.facade;
 import com.example.application.service.OrderApplicationService;
 import com.example.presentation.vo.OrderDto;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,8 +14,8 @@ public class OrderController {
 
   private final OrderApplicationService orderApplicationService;
 
-  @GetMapping("customer/{id}")
-  public OrderDto getOrderDetails(@PathVariable String id) {
+  @GetMapping("/{id}/customerId")
+  public OrderDto getOrderDetails(@PathVariable String id,@RequestParam String customerId) {
     return orderApplicationService.getOrderByOrderId(id);
   }
 
