@@ -21,4 +21,9 @@ public class OrderDomainRepository implements OrderRepository {
   public List<Order> findOrders(String customerId) {
     return jpaOrderRepository.findOrdersByCustomerId(customerId).stream().map(mapper::toDo).collect(Collectors.toList());
   }
+
+  @Override
+  public Order findOrderById(String orderId) {
+    return jpaOrderRepository.findById(orderId).map(mapper::toDo).orElse(null);
+  }
 }
