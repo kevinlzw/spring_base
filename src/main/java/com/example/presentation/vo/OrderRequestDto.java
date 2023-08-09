@@ -3,6 +3,7 @@ package com.example.presentation.vo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -16,7 +17,8 @@ public class OrderRequestDto {
 
   private List<ProductRequestDto> products;
 
-  public static class ProductRequestDto{
+  @Getter
+  public static class ProductRequestDto {
     private String id;
     private Integer quantity;
   }

@@ -21,4 +21,11 @@ public class ProductDetail {
   private BigDecimal price;
 
   private Integer quantity;
+
+  public ProductDetail(Product product, Integer quantity) {
+    this.id = product.getId();
+    this.name = product.getName();
+    this.price = product.getPrice();
+    this.quantity = quantity;
+  }
 }

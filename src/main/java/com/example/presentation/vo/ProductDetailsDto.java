@@ -1,6 +1,5 @@
 package com.example.presentation.vo;
 
-import com.example.domain.entity.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

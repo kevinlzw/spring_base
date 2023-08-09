@@ -34,14 +34,15 @@ public class OrderDomainRepositoryTest {
     orderPo.setProductId("product1");
     orderPo.setQuantity(3);
     orderPo.setCreateTime(createTime);
-    when(jpaOrderRepository.findOrdersByCustomerId(anyString())).thenReturn(Collections.singletonList(orderPo));
+    when(jpaOrderRepository.findOrdersByCustomerId(anyString()))
+        .thenReturn(Collections.singletonList(orderPo));
 
     List<Order> orders = orderDomainRepository.findOrders(anyString());
     Order order = orders.get(0);
     assertEquals(1, orders.size());
     assertEquals("1", order.getOrderId());
-    assertEquals("product1",order.getProductId());
-    assertEquals(3,order.getQuantity());
+    assertEquals("product1", order.getProductId());
+    assertEquals(3, order.getQuantity());
     assertEquals(createTime, order.getCreateTime());
   }
 }

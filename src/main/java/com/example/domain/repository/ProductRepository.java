@@ -8,5 +8,7 @@ public interface ProductRepository {
 
   List<Product> findProducts();
 
+  List<Product> findProducts(List<String> productIds);
+
   Product findProduct(String productId);
 }

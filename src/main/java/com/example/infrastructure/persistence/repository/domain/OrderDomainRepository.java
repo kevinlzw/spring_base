@@ -27,4 +27,10 @@ public class OrderDomainRepository implements OrderRepository {
   public Order findOrderById(String orderId) {
     return jpaOrderRepository.findById(orderId).map(mapper::toDo).orElse(null);
   }
+
+  @Override
+  public void saveOrders(Order order) {
+    jpaOrderRepository.save(mapper.toPo(order));
+  }
+
 }

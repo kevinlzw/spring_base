@@ -21,21 +21,21 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @RequestMapping("/orders")
 public class OrderController {
 
-    private final OrderApplicationService orderApplicationService;
+  private final OrderApplicationService orderApplicationService;
 
-    @GetMapping("/{id}")
-    public OrderDto getOrderDetails(@PathVariable String id, @RequestParam String customerId) {
-        return orderApplicationService.getOrderByOrderId(id,customerId);
-    }
+  @GetMapping("/{id}")
+  public OrderDto getOrderDetails(@PathVariable String id, @RequestParam String customerId) {
+    return orderApplicationService.getOrderByOrderId(id, customerId);
+  }
 
-    @GetMapping("/{customerId}")
-    public List<OrderDto> getOrderList(@PathVariable String customerId) {
-        return orderApplicationService.getOrderList(customerId);
-    }
+  @GetMapping("/{customerId}")
+  public List<OrderDto> getOrderList(@PathVariable String customerId) {
+    return orderApplicationService.getOrderList(customerId);
+  }
 
-    @PostMapping
-    @ResponseStatus(NO_CONTENT)
-    public void takeOrder(OrderRequestDto orderRequest) {
-      orderApplicationService.takeOrder(orderRequest);
-    }
+  @PostMapping
+  @ResponseStatus(NO_CONTENT)
+  public void takeOrder(OrderRequestDto orderRequest) {
+    orderApplicationService.takeOrder(orderRequest);
+  }
 }

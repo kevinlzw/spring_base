@@ -1,6 +1,5 @@
 package com.example.domain.entity;
 
-import com.example.presentation.vo.ProductDetailsDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,6 +8,10 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import static com.example.common.util.StreamUtil.processList;
 
 @Getter
 @Setter
@@ -17,7 +20,7 @@ import java.util.List;
 @Builder
 public class Order {
 
-  private String orderId;
+  private String orderId = UUID.randomUUID().toString();
 
   private List<ProductDetail> productDetails;
 
@@ -26,4 +29,10 @@ public class Order {
   private LocalDateTime createTime;
 
   private LocalDateTime updateTime;
+
+  public Order(List<Product> products, Map<String, Integer> productQuantity) {
+    this.productDetails = processList(products,
+        product -> new ProductDetail(product, productQuantity.get(product.getId())));
+  }
+
 }
