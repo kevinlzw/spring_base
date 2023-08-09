@@ -5,6 +5,7 @@ import com.example.domain.entity.Product;
 import com.example.domain.repository.OrderRepository;
 import com.example.domain.repository.ProductRepository;
 import com.example.presentation.vo.OrderDto;
+import com.example.presentation.vo.SaveOrderResponseDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,8 +17,14 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.example.application.service.common.OrderFixture.ORDER;
+import static com.example.application.service.common.OrderFixture.ORDER_ID;
+import static com.example.application.service.common.OrderFixture.SAVE_ORDER_REQUEST_DTO;
+import static com.example.application.service.common.ProductFixture.PRODUCT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -75,4 +82,14 @@ public class OrderApplicationServiceTest {
     assertEquals(createTime, orderDto2.getCreateTime());
   }
 
+  @Test
+  public void should_save_order_successfully() {
+    when(productRepository.findProducts(anyList())).thenReturn(List.of(PRODUCT));
+
+    doNothing().when(orderRepository).saveOrders(ORDER);
+
+    SaveOrderResponseDto response = service.takeOrder(SAVE_ORDER_REQUEST_DTO);
+
+    assertEquals(ORDER_ID, response.getOrderId());
+  }
 }

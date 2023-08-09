@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,9 +46,9 @@ public class OrderPo {
   @Column(name = "product_quantity")
   private Integer quantity;
 
-  private LocalDateTime createTime = LocalDateTime.now();
+  @CreationTimestamp
+  private LocalDateTime createTime;
 
-  private LocalDateTime updateTime = LocalDateTime.now();
-
-  private String status;
+  @UpdateTimestamp
+  private LocalDateTime updateTime;
 }

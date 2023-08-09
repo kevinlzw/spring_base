@@ -26,7 +26,7 @@ public class ProductApplicationServiceTest {
   private ProductApplicationService service;
 
   @Test
-  void getProducts() {
+  void should_get_products_successfully() {
     Product product1 = Product.builder().id("1").name("Product1").price(new BigDecimal("100.00"))
         .status(ProductStatus.INVALID).createTime(LocalDateTime.now())
         .updateTime(LocalDateTime.now()).build();

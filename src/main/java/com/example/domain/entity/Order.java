@@ -20,7 +20,9 @@ import static com.example.common.util.StreamUtil.processList;
 @Builder
 public class Order {
 
-  private String orderId = UUID.randomUUID().toString();
+  private String customerId;
+
+  private String orderId = UUID.randomUUID().toString().replace("-", "");
 
   private List<ProductDetail> productDetails;
 
@@ -31,7 +33,10 @@ public class Order {
 
   private LocalDateTime updateTime;
 
-  public Order(List<Product> products, Map<String, Integer> productQuantity) {
+  public Order(List<Product> products, Map<String, Integer> productQuantity,
+      LocalDateTime createTime, String customerId) {
+    this.createTime = createTime;
+    this.customerId = customerId;
     this.productDetails = processList(products,
         product -> new ProductDetail(product, productQuantity.get(product.getId())));
   }

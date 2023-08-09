@@ -3,20 +3,34 @@ package com.example.infrastructure.persistence.assembler;
 import com.example.domain.entity.Order;
 import com.example.domain.entity.ProductDetail;
 import com.example.infrastructure.persistence.entity.OrderPo;
-import com.example.presentation.vo.ProductDetailsDto;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
+import java.util.List;
+
+import static com.example.common.util.StreamUtil.processList;
 import static org.mapstruct.factory.Mappers.getMapper;
 
-@org.mapstruct.Mapper(unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE)
+@Mapper(unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE)
 public interface OrderDataMapper {
-    OrderDataMapper mapper = getMapper(OrderDataMapper.class);
+  OrderDataMapper mapper = getMapper(OrderDataMapper.class);
 
-    Order toDo(OrderPo orderPo);
+  Order toDo(OrderPo orderPo);
 
-    OrderPo toPo(Order order);
+  @Mapping(source = "order.orderId", target = "orderId")
+  @Mapping(source = "order.customerId", target = "customerId")
+  @Mapping(source = "productDetail.id", target = "productId")
+  @Mapping(source = "productDetail.name", target = "name")
+  @Mapping(source = "productDetail.price", target = "price")
+  @Mapping(source = "productDetail.quantity", target = "quantity")
+  OrderPo toOrderPo(Order order, ProductDetail productDetail);
 
-    @Mapping(source = "productId", target = "id")
-    ProductDetail toProductDetail(OrderPo orderPo);
+  default List<OrderPo> toPo(Order order) {
+    return processList(order.getProductDetails(), productDetail -> toOrderPo(order, productDetail));
+  }
+
+
+  @Mapping(source = "productId", target = "id")
+  ProductDetail toProductDetail(OrderPo orderPo);
 }

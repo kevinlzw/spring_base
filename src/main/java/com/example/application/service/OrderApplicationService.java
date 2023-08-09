@@ -6,9 +6,10 @@ import com.example.domain.entity.Product;
 import com.example.domain.repository.OrderRepository;
 import com.example.domain.repository.ProductRepository;
 import com.example.presentation.vo.OrderDto;
-import com.example.presentation.vo.OrderRequestDto;
-import com.example.presentation.vo.OrderRequestDto.ProductRequestDto;
+import com.example.presentation.vo.SaveOrderRequestDto;
 import com.example.presentation.vo.ProductDetailsDto;
+import com.example.presentation.vo.ProductRequestDto;
+import com.example.presentation.vo.SaveOrderResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.example.common.util.StreamUtil.processList;
+import static java.time.LocalDateTime.now;
 
 @Service
 @AllArgsConstructor
@@ -56,16 +58,17 @@ public class OrderApplicationService {
   }
 
   public OrderDto getOrderByOrderId(String orderId) {
-      return mapper.toDto(orderRepository.findOrderById(orderId));
+    return mapper.toDto(orderRepository.findOrderById(orderId));
   }
 
-  public void takeOrder(OrderRequestDto orderRequest) {
+  public SaveOrderResponseDto takeOrder(SaveOrderRequestDto orderRequest) {
     List<String> productIds = processList(orderRequest.getProducts(), ProductRequestDto::getId);
     Map<String, Integer> productQuantity = orderRequest.getProducts().stream()
         .collect(Collectors.toMap(ProductRequestDto::getId, ProductRequestDto::getQuantity));
     List<Product> products = productRepository.findProducts(productIds);
-    Order order = new Order(products, productQuantity);
+    Order order = new Order(products, productQuantity, now(), orderRequest.getCustomerId());
     orderRepository.saveOrders(order);
+    return new SaveOrderResponseDto(order.getOrderId());
   }
 
 }

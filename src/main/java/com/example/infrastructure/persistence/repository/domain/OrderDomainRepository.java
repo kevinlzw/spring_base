@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class OrderDomainRepository implements OrderRepository {
   private final JpaOrderRepository jpaOrderRepository;
   private final OrderDataMapper mapper = OrderDataMapper.mapper;
+
   @Override
   public List<Order> findOrders(String customerId) {
     return jpaOrderRepository.findOrdersByCustomerId(customerId).stream().map(mapper::toDo)
@@ -25,15 +26,14 @@ public class OrderDomainRepository implements OrderRepository {
 
   @Override
   public Order findOrderById(String orderId) {
-    List<ProductDetail> productDetailsList = jpaOrderRepository.findOrdersByOrderId(orderId).stream().map(
-            mapper::toProductDetail
-    ).collect(Collectors.toList());
+    List<ProductDetail> productDetailsList = jpaOrderRepository.findOrdersByOrderId(orderId)
+        .stream().map(mapper::toProductDetail).collect(Collectors.toList());
     return Order.builder().orderId(orderId).productDetails(productDetailsList).build();
   }
 
   @Override
   public void saveOrders(Order order) {
-    jpaOrderRepository.save(mapper.toPo(order));
+    jpaOrderRepository.saveAll(mapper.toPo(order));
   }
 
 }
