@@ -21,15 +21,16 @@ public class OrderDomainRepository implements OrderRepository {
   @Override
   public List<Order> findOrders(String customerId) {
     List<OrderPo> ordersByCustomerId = jpaOrderRepository.findOrdersByCustomerId(customerId);
-    List<Order> orders = mapper.groupOrderPoByOrderId(ordersByCustomerId).entrySet().stream()
+    return mapper.groupOrderPoByOrderId(ordersByCustomerId).entrySet().stream()
             .map(entry -> Order.builder()
                     .orderId(entry.getKey())
                     .productDetails(entry.getValue())
                     .createTime(ordersByCustomerId.stream().filter(order -> entry.getKey().equals(order.getOrderId()))
                             .findFirst().map(OrderPo::getCreateTime).orElse(null))
+                    .updateTime(ordersByCustomerId.stream().filter(order -> entry.getKey().equals(order.getOrderId()))
+                            .findFirst().map(OrderPo::getUpdateTime).orElse(null))
                     .build())
             .collect(Collectors.toList());
-    return orders;
   }
 
   @Override

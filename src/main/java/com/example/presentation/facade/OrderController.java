@@ -30,8 +30,8 @@ public class OrderController {
     return orderApplicationService.getOrderByOrderId(id);
   }
 
-  @GetMapping("/{customerId}")
-  public List<OrderDto> getOrderList(@PathVariable String customerId) {
+  @GetMapping
+  public List<OrderDto> getOrderList(@RequestParam("customerId") String customerId) {
     return orderApplicationService.getOrderList(customerId);
   }
 

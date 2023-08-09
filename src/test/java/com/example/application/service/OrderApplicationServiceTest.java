@@ -75,6 +75,7 @@ public class OrderApplicationServiceTest {
     assertEquals(3, orderDto2.getProducts().get(0).getQuantity());
     assertEquals("submit", orderDto2.getOrderStatus());
     assertEquals(createTime, orderDto2.getCreateTime());
+    assertEquals(BigDecimal.valueOf(460),orderDto1.getTotalPrice());
   }
 
   @Test
