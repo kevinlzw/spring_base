@@ -32,15 +32,18 @@ public class OrderApplicationServiceTest {
   @Mock
   private OrderRepository orderRepository;
 
+  @Mock
+  private ProductRepository productRepository;
+
   @InjectMocks
   private OrderApplicationService service;
 
   @Test
   void should_get_orders_successfully() {
     ProductDetail product1 =
-            ProductDetail.builder().id("product1").name("book").price(BigDecimal.valueOf(20)).build();
+            ProductDetail.builder().id("product1").name("book").price(BigDecimal.valueOf(20)).quantity(3).build();
     ProductDetail product2 =
-            ProductDetail.builder().id("product2").name("cat").price(BigDecimal.valueOf(200)).build();
+            ProductDetail.builder().id("product2").name("cat").price(BigDecimal.valueOf(200)).quantity(2).build();
 
     LocalDateTime createTime = LocalDateTime.of(2016, 7, 31, 14, 15);
     Order order1 = Order.builder().orderId("1").productDetails(List.of(product1,product2))
@@ -69,7 +72,7 @@ public class OrderApplicationServiceTest {
     assertEquals("2", orderDto2.getOrderId());
     assertEquals("book", orderDto2.getProducts().get(0).getName());
     assertEquals(BigDecimal.valueOf(20), orderDto2.getProducts().get(0).getPrice());
-    assertEquals(5, orderDto2.getProducts().get(0).getQuantity());
+    assertEquals(3, orderDto2.getProducts().get(0).getQuantity());
     assertEquals("submit", orderDto2.getOrderStatus());
     assertEquals(createTime, orderDto2.getCreateTime());
   }

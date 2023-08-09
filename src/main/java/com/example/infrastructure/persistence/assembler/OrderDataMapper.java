@@ -1,13 +1,17 @@
 package com.example.infrastructure.persistence.assembler;
 
 import com.example.domain.entity.Order;
+import com.example.domain.entity.Product;
 import com.example.domain.entity.ProductDetail;
 import com.example.infrastructure.persistence.entity.OrderPo;
+import com.example.presentation.vo.ProductDetailsDto;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.example.common.util.StreamUtil.processList;
 import static org.mapstruct.factory.Mappers.getMapper;
@@ -16,8 +20,21 @@ import static org.mapstruct.factory.Mappers.getMapper;
 public interface OrderDataMapper {
   OrderDataMapper mapper = getMapper(OrderDataMapper.class);
 
-  Order toDo(OrderPo orderPo);
-
+  default Map<String, List<ProductDetail>> groupOrderPoByOrderId(List<OrderPo> orders) {
+    return orders.stream()
+            .collect(Collectors.groupingBy(
+                    OrderPo::getOrderId,
+                    Collectors.mapping(
+                            order -> ProductDetail.builder()
+                                      .id(order.getProductId())
+                                      .price(order.getPrice())
+                                      .name(order.getName())
+                                      .quantity(order.getQuantity())
+                                      .build(),
+                            Collectors.toList()
+                    )
+            ));
+  }
   @Mapping(source = "order.orderId", target = "orderId")
   @Mapping(source = "order.customerId", target = "customerId")
   @Mapping(source = "productDetail.id", target = "productId")

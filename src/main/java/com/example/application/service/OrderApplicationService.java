@@ -1,18 +1,20 @@
 package com.example.application.service;
 
 import com.example.application.assembler.OrderDtoMapper;
+import com.example.domain.entity.Order;
+import com.example.domain.entity.Product;
 import com.example.domain.repository.OrderRepository;
+import com.example.domain.repository.ProductRepository;
 import com.example.presentation.vo.OrderDto;
-import com.example.presentation.vo.SaveOrderRequestDto;
-import com.example.presentation.vo.ProductDetailsDto;
 import com.example.presentation.vo.ProductRequestDto;
+import com.example.presentation.vo.SaveOrderRequestDto;
 import com.example.presentation.vo.SaveOrderResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static com.example.common.util.StreamUtil.processList;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.example.common.util.StreamUtil.processList;
 import static java.time.LocalDateTime.now;
@@ -22,6 +24,8 @@ import static java.time.LocalDateTime.now;
 public class OrderApplicationService {
 
   private final OrderRepository orderRepository;
+
+  private final ProductRepository productRepository;
   private final OrderDtoMapper mapper = OrderDtoMapper.MAPPER;
 
   public List<OrderDto> getOrderList(String customerId) {
