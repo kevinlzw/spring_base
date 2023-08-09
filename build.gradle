@@ -64,6 +64,13 @@ bootRun {
 }
 
 wrapper {
-    gradleVersion = '6.7.1'
+    gradleVersion = '6.8'
 }
 
+test {
+    useJUnitPlatform()
+    reports {
+        junitXml.enabled = true
+        html.enabled = true
+    }
+}
