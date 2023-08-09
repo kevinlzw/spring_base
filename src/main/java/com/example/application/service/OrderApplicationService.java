@@ -1,10 +1,7 @@
 package com.example.application.service;
 
 import com.example.application.assembler.OrderDtoMapper;
-import com.example.domain.entity.Order;
-import com.example.domain.entity.Product;
 import com.example.domain.repository.OrderRepository;
-import com.example.domain.repository.ProductRepository;
 import com.example.presentation.vo.OrderDto;
 import com.example.presentation.vo.SaveOrderRequestDto;
 import com.example.presentation.vo.ProductDetailsDto;
@@ -13,10 +10,9 @@ import com.example.presentation.vo.SaveOrderResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+
+import static com.example.common.util.StreamUtil.processList;
 
 import static com.example.common.util.StreamUtil.processList;
 import static java.time.LocalDateTime.now;
@@ -26,35 +22,10 @@ import static java.time.LocalDateTime.now;
 public class OrderApplicationService {
 
   private final OrderRepository orderRepository;
-  private final ProductRepository productRepository;
   private final OrderDtoMapper mapper = OrderDtoMapper.MAPPER;
 
   public List<OrderDto> getOrderList(String customerId) {
-
-    List<Order> orders = orderRepository.findOrders(customerId);
-
-    Map<String, List<ProductDetailsDto>> orderIdProductMap = orders.stream()
-        .collect(Collectors.groupingBy(Order::getOrderId, Collectors.mapping(order -> {
-          Product product = productRepository.findProduct(null);
-          return ProductDetailsDto.builder().id(product.getId()).price(product.getPrice())
-              .name(product.getName())
-              // .quantity(order.getQuantity())
-              .build();
-        }, Collectors.toList())));
-
-    List<OrderDto> result = orderIdProductMap.entrySet().stream()
-        .map(entry -> OrderDto.builder().orderId(entry.getKey()).products(entry.getValue())
-            .createTime(orders.stream().filter(order -> entry.getKey().equals(order.getOrderId()))
-                .findFirst().map(Order::getCreateTime).orElse(null))
-            .orderStatus(orders.stream().filter(order -> entry.getKey().equals(order.getOrderId()))
-                .findFirst().map(Order::getStatus).orElse(null))
-            // todo
-            .totalPrice(BigDecimal.valueOf(0)).build())
-        .collect(Collectors.toList());
-
-    return result;
-
-
+    return processList(orderRepository.findOrders(customerId), mapper::toDto);
   }
 
   public OrderDto getOrderByOrderId(String orderId) {

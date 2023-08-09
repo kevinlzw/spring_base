@@ -1,7 +1,7 @@
 package com.example.application.service;
 
 import com.example.domain.entity.Order;
-import com.example.domain.entity.Product;
+import com.example.domain.entity.ProductDetail;
 import com.example.domain.repository.OrderRepository;
 import com.example.domain.repository.ProductRepository;
 import com.example.presentation.vo.OrderDto;
@@ -32,33 +32,25 @@ public class OrderApplicationServiceTest {
   @Mock
   private OrderRepository orderRepository;
 
-  @Mock
-  private ProductRepository productRepository;
-
   @InjectMocks
   private OrderApplicationService service;
 
   @Test
   void should_get_orders_successfully() {
+    ProductDetail product1 =
+            ProductDetail.builder().id("product1").name("book").price(BigDecimal.valueOf(20)).build();
+    ProductDetail product2 =
+            ProductDetail.builder().id("product2").name("cat").price(BigDecimal.valueOf(200)).build();
+
     LocalDateTime createTime = LocalDateTime.of(2016, 7, 31, 14, 15);
-    Order order1 = Order.builder().orderId("1").productId("product1").quantity(3).status("submit")
+    Order order1 = Order.builder().orderId("1").productDetails(List.of(product1,product2))
         .createTime(createTime).updateTime(createTime).build();
 
-    Order order2 = Order.builder().orderId("1").productId("product2").quantity(2).status("submit")
+    Order order2 = Order.builder().orderId("2").productDetails(List.of(product1))
         .createTime(createTime).updateTime(createTime).build();
 
-    Order order3 = Order.builder().orderId("2").productId("product1").quantity(5).status("submit")
-        .createTime(createTime).updateTime(createTime).build();
-
-    Product product1 =
-        Product.builder().id("product1").name("book").price(BigDecimal.valueOf(20)).build();
-    Product product2 =
-        Product.builder().id("product2").name("cat").price(BigDecimal.valueOf(200)).build();
-
-    List<Order> orders = Arrays.asList(order1, order2, order3);
+    List<Order> orders = Arrays.asList(order1, order2);
     when(orderRepository.findOrders(anyString())).thenReturn(orders);
-    when(productRepository.findProduct("product1")).thenReturn(product1);
-    when(productRepository.findProduct("product2")).thenReturn(product2);
 
     List<OrderDto> orderList = service.getOrderList(anyString());
     OrderDto orderDto1 = orderList.get(0);

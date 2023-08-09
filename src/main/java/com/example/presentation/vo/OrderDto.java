@@ -23,4 +23,6 @@ public class OrderDto {
   private String orderId;
 
   private LocalDateTime createTime;
+
+  private LocalDateTime updateTime;
 }
