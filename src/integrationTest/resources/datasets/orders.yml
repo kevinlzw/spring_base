@@ -1,0 +1,7 @@
+product:
+  - id: 12345
+    name: idk
+    price: 223.34
+    status: VALID
+    create_time: "2023-08-07 14:50:40"
+    update_time: "2023-08-07 14:50:40"

@@ -1,5 +1,6 @@
 package com.example.domain.entity;
 
+import com.example.presentation.vo.ProductDetailsDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,15 +16,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class Order {
-  private String id;
 
   private String orderId;
 
-  private String productId;
+  private List<ProductDetail> productDetails;
 
-  private Integer quantity;
-
-  private String status;
+  private String status = "submit";
 
   private LocalDateTime createTime;
 

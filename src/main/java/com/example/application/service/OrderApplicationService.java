@@ -33,12 +33,12 @@ public class OrderApplicationService {
                         Order::getOrderId,
                         Collectors.mapping(
                                 order -> {
-                                    Product product = productRepository.findProduct(order.getProductId());
+                                    Product product = productRepository.findProduct(null);
                                     return ProductDetailsDto.builder()
                                             .id(product.getId())
                                             .price(product.getPrice())
                                             .name(product.getName())
-                                            .quantity(order.getQuantity())
+//                                            .quantity(order.getQuantity())
                                             .build();
                                 },
                                 Collectors.toList()
