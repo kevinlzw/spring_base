@@ -32,7 +32,7 @@ public class OrderApplicationServiceTest {
   private OrderApplicationService service;
 
   @Test
-  void getOrders() {
+  void should_get_orders_successfully() {
     LocalDateTime createTime = LocalDateTime.of(2016, 7, 31, 14, 15);
     Order order1 = Order.builder().orderId("1").productId("product1").quantity(3).status("submit")
         .createTime(createTime).updateTime(createTime).build();
@@ -74,4 +74,5 @@ public class OrderApplicationServiceTest {
     assertEquals("submit", orderDto2.getOrderStatus());
     assertEquals(createTime, orderDto2.getCreateTime());
   }
+
 }
