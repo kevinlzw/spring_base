@@ -7,7 +7,7 @@ import static org.mapstruct.factory.Mappers.getMapper;
 
 @org.mapstruct.Mapper(unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE)
 public interface OrderDtoMapper {
-    OrderDtoMapper MAPPER = getMapper(OrderDtoMapper.class);
+  OrderDtoMapper MAPPER = getMapper(OrderDtoMapper.class);
 
-    OrderDto toDto(Order order);
+  OrderDto toDto(Order order);
 }

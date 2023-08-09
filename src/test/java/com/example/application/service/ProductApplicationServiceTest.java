@@ -45,6 +45,7 @@ public class ProductApplicationServiceTest {
       Product product = productList.get(i);
       ProductDto dto = productDtos.get(i);
 
+      assertEquals(product.getId(), dto.getId());
       assertEquals(product.getName(), dto.getName());
       assertEquals(product.getPrice(), dto.getPrice());
       assertEquals(product.getStatus(), dto.getStatus());

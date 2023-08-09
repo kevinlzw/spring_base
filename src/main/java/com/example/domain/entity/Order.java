@@ -14,17 +14,17 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class Order {
-    private String id;
+  private String id;
 
-    private String orderId;
+  private String orderId;
 
-    private String productId;
+  private String productId;
 
-    private Integer quantity;
+  private Integer quantity;
 
-    private String status;
+  private String status;
 
-    private LocalDateTime createTime;
+  private LocalDateTime createTime;
 
-    private LocalDateTime updateTime;
+  private LocalDateTime updateTime;
 }
