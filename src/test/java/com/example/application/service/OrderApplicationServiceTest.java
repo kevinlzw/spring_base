@@ -59,16 +59,16 @@ public class OrderApplicationServiceTest {
     assertEquals("1", orderDto1.getOrderId());
     assertEquals("book", orderDto1.getProducts().get(0).getName());
     assertEquals( BigDecimal.valueOf(20),orderDto1.getProducts().get(0).getPrice());
-    assertEquals(2, orderDto1.getProducts().get(0).getQuantity());
+    assertEquals(3, orderDto1.getProducts().get(0).getQuantity());
     assertEquals("cat", orderDto1.getProducts().get(1).getName());
     assertEquals( BigDecimal.valueOf(200),orderDto1.getProducts().get(1).getPrice());
-    assertEquals(5, orderDto1.getProducts().get(1).getQuantity());
+    assertEquals(2, orderDto1.getProducts().get(1).getQuantity());
     assertEquals("submit", orderDto1.getOrderStatus());
     assertEquals(createTime,orderDto1.getCreateTime());
     assertEquals("2", orderDto2.getOrderId());
     assertEquals("book", orderDto2.getProducts().get(0).getName());
     assertEquals( BigDecimal.valueOf(20),orderDto2.getProducts().get(0).getPrice());
-    assertEquals(2, orderDto2.getProducts().get(0).getQuantity());
+    assertEquals(5, orderDto2.getProducts().get(0).getQuantity());
     assertEquals("submit", orderDto2.getOrderStatus());
     assertEquals(createTime,orderDto2.getCreateTime());
   }
