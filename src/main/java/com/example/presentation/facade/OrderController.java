@@ -19,8 +19,7 @@ public class OrderController {
 
   @GetMapping("customer/{id}")
   public OrderDto getOrderDetails(@PathVariable String id) {
-    return null;
-    // Todo: need development
+    return orderApplicationService.getOrderByOrderId(id);
   }
 
   @GetMapping("/{customerId}")
