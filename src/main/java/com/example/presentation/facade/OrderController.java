@@ -21,12 +21,12 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @RequestMapping("/orders")
 public class OrderController {
 
-  private final OrderApplicationService orderApplicationService;
+    private final OrderApplicationService orderApplicationService;
 
-  @GetMapping("/{id}")
-  public OrderDto getOrderDetails(@PathVariable String id, @RequestParam String customerId) {
-    return orderApplicationService.getOrderByOrderId(id, customerId);
-  }
+    @GetMapping("/{id}")
+    public OrderDto getOrderDetails(@PathVariable String id, @RequestParam String customerId) {
+        return orderApplicationService.getOrderByOrderId(id);
+    }
 
   @GetMapping("/{customerId}")
   public List<OrderDto> getOrderList(@PathVariable String customerId) {

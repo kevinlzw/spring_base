@@ -55,9 +55,8 @@ public class OrderApplicationService {
 
   }
 
-  public OrderDto getOrderByOrderId(String orderId, String customerId) {
-    return null;
-    // Todo: need work
+  public OrderDto getOrderByOrderId(String orderId) {
+      return mapper.toDto(orderRepository.findOrderById(orderId));
   }
 
   public void takeOrder(OrderRequestDto orderRequest) {
