@@ -8,7 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.example.common.util.StreamUtil.processList;
 
 @Component
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class ProductDomainRepository implements ProductRepository {
 
   @Override
   public List<Product> findProducts() {
-    return jpaProductRepository.findAll().stream().map(mapper::toDo).collect(Collectors.toList());
+    return processList(jpaProductRepository.findAll(), mapper::toDo);
   }
 
   @Override

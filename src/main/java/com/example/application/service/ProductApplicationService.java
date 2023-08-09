@@ -7,7 +7,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.example.common.util.StreamUtil.processList;
 
 @Service
 @AllArgsConstructor
@@ -17,7 +18,6 @@ public class ProductApplicationService {
   private final ProductDtoMapper mapper = ProductDtoMapper.MAPPER;
 
   public List<ProductDto> getProducts() {
-    return productRepository.findProducts().stream().map(mapper::toDto)
-        .collect(Collectors.toList());
+    return processList(productRepository.findProducts(), mapper::toDto);
   }
 }
