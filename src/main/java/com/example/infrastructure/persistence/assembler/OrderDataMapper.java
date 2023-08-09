@@ -11,12 +11,12 @@ import static org.mapstruct.factory.Mappers.getMapper;
 
 @org.mapstruct.Mapper(unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE)
 public interface OrderDataMapper {
-  OrderDataMapper mapper = getMapper(OrderDataMapper.class);
+    OrderDataMapper mapper = getMapper(OrderDataMapper.class);
 
-  Order toDo(OrderPo orderPo);
+    Order toDo(OrderPo orderPo);
 
-  OrderPo toPo(Order order);
-  ProductDetailsDto toResponse(OrderPo orderPo);
-  @Mapping(source = "productId", target = "id")
-  ProductDetail toProductDetail(OrderPo orderPo);
+    OrderPo toPo(Order order);
+
+    @Mapping(source = "productId", target = "id")
+    ProductDetail toProductDetail(OrderPo orderPo);
 }
