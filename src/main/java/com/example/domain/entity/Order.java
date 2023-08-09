@@ -24,6 +24,7 @@ public class Order {
 
   private List<ProductDetail> productDetails;
 
+  @Builder.Default
   private String status = "submit";
 
   private LocalDateTime createTime;
