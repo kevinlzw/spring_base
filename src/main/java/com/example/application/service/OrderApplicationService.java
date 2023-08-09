@@ -6,6 +6,7 @@ import com.example.domain.entity.Product;
 import com.example.domain.repository.OrderRepository;
 import com.example.domain.repository.ProductRepository;
 import com.example.presentation.vo.OrderDto;
+import com.example.presentation.vo.OrderRequestDto;
 import com.example.presentation.vo.ProductDetailsDto;
 import com.example.presentation.vo.ProductDto;
 import lombok.AllArgsConstructor;
@@ -64,4 +65,8 @@ public class OrderApplicationService {
 
     return mapper.toDto(orderRepository.findOrderById(orderId));
   }
+
+    public void takeOrder(OrderRequestDto orderRequest) {
+        
+    }
 }
