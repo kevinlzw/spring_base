@@ -19,9 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.example.application.service.common.OrderFixture.*;
-import static com.example.application.service.common.ProductFixture.PRODUCT;
+import static com.example.application.service.common.ProductFixture.VALID_PRODUCT;
 import static com.example.application.service.common.ProductFixture.ProductDetailBuilder;
-import static com.example.application.service.common.OrderFixture.*;
 import static com.example.application.service.common.ProductFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
@@ -96,7 +95,7 @@ public class OrderApplicationServiceTest {
 
   @Test
   public void should_save_order_successfully() {
-    when(productRepository.findProducts(anyList())).thenReturn(List.of(PRODUCT));
+    when(productRepository.findProducts(anyList())).thenReturn(List.of(VALID_PRODUCT));
 
     doNothing().when(orderRepository).saveOrders(any());
 
@@ -108,9 +107,26 @@ public class OrderApplicationServiceTest {
 
     ProductDetail productDetail = order.getProductDetails().get(0);
 
-    assertEquals(PRODUCT.getId(), productDetail.getId());
-    assertEquals(PRODUCT.getName(), productDetail.getName());
-    assertEquals(PRODUCT.getPrice(), productDetail.getPrice());
+    assertEquals(VALID_PRODUCT.getId(), productDetail.getId());
+    assertEquals(VALID_PRODUCT.getName(), productDetail.getName());
+    assertEquals(VALID_PRODUCT.getPrice(), productDetail.getPrice());
     assertEquals(32, productDetail.getQuantity());
+  }
+
+  @Test
+  public void should_not_save_invalid_product_successfully() {
+    when(productRepository.findProducts(anyList())).thenReturn(List.of(INVALID_PRODUCT));
+
+    doNothing().when(orderRepository).saveOrders(any());
+
+    service.takeOrder(SAVE_ORDER_REQUEST_DTO);
+
+    verify(orderRepository).saveOrders(captor.capture());
+
+    Order order = captor.getValue();
+
+    List<ProductDetail> productDetail = order.getProductDetails();
+
+    assertEquals(0, productDetail.size());
   }
 }

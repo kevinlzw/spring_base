@@ -5,3 +5,9 @@ product:
     status: VALID
     create_time: "2023-08-07 14:50:40"
     update_time: "2023-08-07 14:50:40"
+  - id: 123456
+    name: idksaa
+    price: 223.34
+    status: INVALID
+    create_time: "2023-08-07 14:50:40"
+    update_time: "2023-08-07 14:50:40"

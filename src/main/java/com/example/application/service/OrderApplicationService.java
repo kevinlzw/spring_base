@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.example.common.util.StreamUtil.processList;
+import static com.example.domain.entity.ProductStatus.VALID;
 import static java.time.LocalDateTime.now;
 
 @Service
@@ -44,8 +45,14 @@ public class OrderApplicationService {
     Map<String, Integer> productQuantity = orderRequest.getProducts().stream()
         .collect(Collectors.toMap(ProductRequestDto::getId, ProductRequestDto::getQuantity));
     List<Product> products = productRepository.findProducts(productIds);
-    Order order = new Order(products, productQuantity, now(), orderRequest.getCustomerId());
+    List<Product> validProducts = filterValidProducts(products);
+    Order order = new Order(validProducts, productQuantity, now(), orderRequest.getCustomerId());
     orderRepository.saveOrders(order);
     return new SaveOrderResponseDto(order.getOrderId());
+  }
+
+  private static List<Product> filterValidProducts(List<Product> products) {
+    return products.stream().filter(product -> product.getStatus() == VALID)
+        .collect(java.util.stream.Collectors.toList());
   }
 }
