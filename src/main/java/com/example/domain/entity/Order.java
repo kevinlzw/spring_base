@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,12 @@ public class Order {
     this.customerId = customerId;
     this.productDetails = processList(products,
         product -> new ProductDetail(product, productQuantity.get(product.getId())));
+  }
+
+  public BigDecimal calculateTotalPrice() {
+    return productDetails.stream()
+        .map(product -> product.getPrice().multiply(BigDecimal.valueOf(product.getQuantity())))
+        .reduce(BigDecimal.ZERO, BigDecimal::add);
   }
 
 }
