@@ -21,7 +21,7 @@ public class OrderControllerIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
-  @DataSet("orders.yml")
+  @DataSet(value = "orders.yml", cleanBefore = true)
   public void get_order_list_should_success() {
 
     given().param("customerId", "12345").when().get("/orders").then().statusCode(200)
@@ -36,7 +36,7 @@ public class OrderControllerIntegrationTest extends BaseIntegrationTest {
   }
 
   @Test
-  @DataSet("orders.yml")
+  @DataSet(value = "orders.yml", cleanBefore = true)
   public void get_order_details_should_success() {
     String customerId = "12345";
     String orderId = "1";
