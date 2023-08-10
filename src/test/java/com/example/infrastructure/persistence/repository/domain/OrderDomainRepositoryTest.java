@@ -74,4 +74,24 @@ public class OrderDomainRepositoryTest {
     assertEquals(productDetail.getId(), orderPo.getProductId());
     assertEquals(productDetail.getQuantity(), orderPo.getQuantity());
   }
+
+  @Test
+  public void should_find_order_details_successfully() {
+    LocalDateTime createTime = LocalDateTime.of(2016, 7, 31, 14, 15);
+
+    OrderPo orderPo = new OrderPo();
+    orderPo.setOrderId("1");
+    orderPo.setProductId("product1");
+    orderPo.setQuantity(3);
+    orderPo.setCreateTime(createTime);
+    when(jpaOrderRepository.findOrdersByOrderId(anyString()))
+            .thenReturn(Collections.singletonList(orderPo));
+
+    Order order = orderDomainRepository.findOrderById("1");
+
+    assertEquals("1", order.getOrderId());
+    assertEquals("product1", order.getProductDetails().get(0).getId());
+    assertEquals(3, order.getProductDetails().get(0).getQuantity());
+    assertEquals(createTime, order.getCreateTime());
+  }
 }
