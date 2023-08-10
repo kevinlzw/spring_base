@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "order")
+@Table(name = "customer_order")
 public class OrderPo {
   @Id
   @GeneratedValue(generator = "system-uuid")

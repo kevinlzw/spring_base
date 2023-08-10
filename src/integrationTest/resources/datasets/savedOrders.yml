@@ -1,0 +1,10 @@
+customer_order:
+  - id: regex:.*
+    order_id: regex:.*
+    customer_id: XXX
+    product_id: 12345
+    product_name: idk
+    product_price: 223.34
+    product_quantity: 32
+    create_time: regex:.*
+    update_time: regex:.*

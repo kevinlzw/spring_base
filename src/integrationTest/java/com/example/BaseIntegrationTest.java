@@ -11,7 +11,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
 @DBRider
-@DBUnit(schema = "PUBLIC")
 @ExtendWith(DBUnitExtension.class)
 @ActiveProfiles("api-test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

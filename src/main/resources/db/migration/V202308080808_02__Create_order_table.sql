@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `order` (
+CREATE TABLE IF NOT EXISTS `customer_order` (
     `id`               VARCHAR(32)    NOT NULL COMMENT '主键',
     `customer_id`      VARCHAR(32)    NOT NULL COMMENT '客户ID',
     `order_id`         VARCHAR(32)    NOT NULL,
