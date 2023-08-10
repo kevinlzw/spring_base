@@ -9,6 +9,8 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static com.example.domain.entity.ProductStatus.VALID;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,4 +29,7 @@ public class Product {
 
   private LocalDateTime updateTime;
 
+  public boolean isValid() {
+    return this.status == VALID;
+  }
 }
