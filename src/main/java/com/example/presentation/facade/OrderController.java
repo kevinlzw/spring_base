@@ -37,8 +37,7 @@ public class OrderController {
 
   @PostMapping
   @ResponseStatus(CREATED)
-  public SaveOrderResponseDto takeOrder(
-      @RequestBody SaveOrderRequestDto orderRequest) {
+  public SaveOrderResponseDto takeOrder(@RequestBody SaveOrderRequestDto orderRequest) {
     return orderApplicationService.takeOrder(orderRequest);
   }
 }

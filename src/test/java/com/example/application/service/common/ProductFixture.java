@@ -26,10 +26,12 @@ public class ProductFixture {
   public final static ProductDetail PRODUCT_DETAIL =
       new ProductDetail(PRODUCT_ID, PRODUCT_NAME, BigDecimal.ONE, PRODUCT_QUANTITY);
 
-  public static ProductDetail.ProductDetailBuilder ProductDetailBuilder (String id, String name, Integer price, Integer quantity){
-    return ProductDetail.builder().id(id).name(name).price(BigDecimal.valueOf(price)).quantity(quantity);
+  public static ProductDetail.ProductDetailBuilder ProductDetailBuilder(String id, String name,
+      Integer price, Integer quantity) {
+    return ProductDetail.builder().id(id).name(name).price(BigDecimal.valueOf(price))
+        .quantity(quantity);
   }
 
   public final static ProductDetailsDto PRODUCT_DETAIL_DTO =
-          new ProductDetailsDto(PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY);
+      new ProductDetailsDto(PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY);
 }

@@ -15,12 +15,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
-import static com.example.application.service.common.CustomerFixture.CUSTOMER_ID;
 import static com.example.application.service.common.OrderFixture.ORDER;
-import static com.example.application.service.common.OrderFixture.ORDER_ID;
-import static com.example.application.service.common.ProductFixture.PRODUCT_ID;
-import static com.example.application.service.common.ProductFixture.PRODUCT_NAME;
-import static com.example.application.service.common.ProductFixture.PRODUCT_PRICE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -47,14 +42,15 @@ public class OrderDomainRepositoryTest {
     orderPo.setProductId("product1");
     orderPo.setQuantity(3);
     orderPo.setCreateTime(createTime);
-    when(jpaOrderRepository.findOrdersByCustomerId(anyString())).thenReturn(Collections.singletonList(orderPo));
+    when(jpaOrderRepository.findOrdersByCustomerId(anyString()))
+        .thenReturn(Collections.singletonList(orderPo));
 
     List<Order> orders = orderDomainRepository.findOrders(anyString());
     Order order = orders.get(0);
     assertEquals(1, orders.size());
     assertEquals("1", order.getOrderId());
-    assertEquals("product1",order.getProductDetails().get(0).getId());
-    assertEquals(3,order.getProductDetails().get(0).getQuantity());
+    assertEquals("product1", order.getProductDetails().get(0).getId());
+    assertEquals(3, order.getProductDetails().get(0).getQuantity());
     assertEquals(createTime, order.getCreateTime());
   }
 

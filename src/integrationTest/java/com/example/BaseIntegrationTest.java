@@ -1,6 +1,5 @@
 package com.example;
 
-import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.junit5.DBUnitExtension;
 import com.github.database.rider.junit5.api.DBRider;
 import io.restassured.RestAssured;

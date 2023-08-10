@@ -22,22 +22,22 @@ public class OrderDomainRepository implements OrderRepository {
   public List<Order> findOrders(String customerId) {
     List<OrderPo> ordersByCustomerId = jpaOrderRepository.findOrdersByCustomerId(customerId);
     return mapper.groupOrderPoByOrderId(ordersByCustomerId).entrySet().stream()
-            .map(entry -> Order.builder()
-                    .orderId(entry.getKey())
-                    .productDetails(entry.getValue())
-                    .createTime(ordersByCustomerId.stream().filter(order -> entry.getKey().equals(order.getOrderId()))
-                            .findFirst().map(OrderPo::getCreateTime).orElse(null))
-                    .updateTime(ordersByCustomerId.stream().filter(order -> entry.getKey().equals(order.getOrderId()))
-                            .findFirst().map(OrderPo::getUpdateTime).orElse(null))
-                    .build())
-            .collect(Collectors.toList());
+        .map(entry -> Order.builder().orderId(entry.getKey()).productDetails(entry.getValue())
+            .createTime(ordersByCustomerId
+                .stream().filter(order -> entry.getKey().equals(order.getOrderId())).findFirst()
+                .map(OrderPo::getCreateTime).orElse(null))
+            .updateTime(ordersByCustomerId.stream()
+                .filter(order -> entry.getKey().equals(order.getOrderId())).findFirst()
+                .map(OrderPo::getUpdateTime).orElse(null))
+            .build())
+        .collect(Collectors.toList());
   }
 
   @Override
   public Order findOrderById(String orderId) {
     java.util.List<OrderPo> ordersByOrderId = jpaOrderRepository.findOrdersByOrderId(orderId);
-    List<ProductDetail> productDetailsList = ordersByOrderId
-        .stream().map(mapper::toProductDetail).collect(Collectors.toList());
+    List<ProductDetail> productDetailsList =
+        ordersByOrderId.stream().map(mapper::toProductDetail).collect(Collectors.toList());
     return Order.builder().orderId(orderId).productDetails(productDetailsList).build();
   }
 

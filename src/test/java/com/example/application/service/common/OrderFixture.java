@@ -25,12 +25,12 @@ public class OrderFixture {
       new Order(CUSTOMER_ID, ORDER_ID, List.of(PRODUCT_DETAIL), "submit", null, null);
 
   public final static OrderDto ORDER_DTO =
-          new OrderDto(List.of(PRODUCT_DETAIL_DTO),BigDecimal.TEN,"submit",ORDER_ID,null,null);
+      new OrderDto(List.of(PRODUCT_DETAIL_DTO), BigDecimal.TEN, "submit", ORDER_ID, null, null);
 
   public final static SaveOrderResponseDto SAVE_ORDER_RESPONSE_DTO =
       new SaveOrderResponseDto(ORDER_ID);
 
-  public static Order.OrderBuilder orderBuilder(String id, List<ProductDetail> products){
+  public static Order.OrderBuilder orderBuilder(String id, List<ProductDetail> products) {
     LocalDateTime time = LocalDateTime.of(2016, 7, 31, 14, 15);
     return Order.builder().orderId(id).productDetails(products).createTime(time).updateTime(time);
   }

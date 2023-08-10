@@ -18,9 +18,8 @@ public interface OrderDataMapper {
   OrderDataMapper mapper = getMapper(OrderDataMapper.class);
 
   default Map<String, List<ProductDetail>> groupOrderPoByOrderId(List<OrderPo> orders) {
-    return orders.stream().collect(Collectors.groupingBy(
-                    OrderPo::getOrderId, Collectors.mapping(this::toProductDetail, Collectors.toList())
-            ));
+    return orders.stream().collect(Collectors.groupingBy(OrderPo::getOrderId,
+        Collectors.mapping(this::toProductDetail, Collectors.toList())));
   }
 
   @Mapping(source = "order.orderId", target = "orderId")
