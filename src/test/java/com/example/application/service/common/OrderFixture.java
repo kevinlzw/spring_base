@@ -1,9 +1,11 @@
 package com.example.application.service.common;
 
 import com.example.domain.entity.Order;
+import com.example.domain.entity.ProductDetail;
 import com.example.presentation.vo.SaveOrderRequestDto;
 import com.example.presentation.vo.SaveOrderResponseDto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,4 +24,9 @@ public class OrderFixture {
 
   public final static SaveOrderResponseDto SAVE_ORDER_RESPONSE_DTO =
       new SaveOrderResponseDto(ORDER_ID);
+
+  public static Order.OrderBuilder orderBuilder(String id, List<ProductDetail> products){
+    LocalDateTime time = LocalDateTime.of(2016, 7, 31, 14, 15);
+    return Order.builder().orderId(id).productDetails(products).createTime(time).updateTime(time);
+  }
 }

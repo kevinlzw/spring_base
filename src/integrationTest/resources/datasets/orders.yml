@@ -3,11 +3,13 @@ order:
     products:
       - id: 1
         name: Product 1
-        price: 10.99
+        price: 10.00
+        quantity: 3
       - id: 2
         name: Product 2
-        price: 19.99
-    totalPrice: 30.98
+        price: 20.00
+        quantity: 1
+    totalPrice: 50.00
     orderStatus: "submit"
     orderId: "ORD-123456"
     createTime: "2023-08-09T10:00:00"
@@ -16,11 +18,13 @@ order:
     products:
       - id: 3
         name: Product 3
-        price: 15.99
+        price: 15.00
+        quantity: 2
       - id: 4
         name: Product 4
-        price: 24.99
-    totalPrice: 40.98
+        price: 25.00
+        quantity: 10
+    totalPrice: 280.00
     orderStatus: "submit"
     orderId: "ORD-789012"
     createTime: "2023-08-09T11:00:00"

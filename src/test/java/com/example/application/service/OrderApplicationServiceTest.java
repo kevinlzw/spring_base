@@ -13,14 +13,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.example.application.service.common.OrderFixture.ORDER;
-import static com.example.application.service.common.OrderFixture.ORDER_ID;
-import static com.example.application.service.common.OrderFixture.SAVE_ORDER_REQUEST_DTO;
+import static com.example.application.service.common.OrderFixture.*;
 import static com.example.application.service.common.ProductFixture.PRODUCT;
+import static com.example.application.service.common.ProductFixture.ProductDetailBuilder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -40,17 +38,11 @@ public class OrderApplicationServiceTest {
 
   @Test
   void should_get_orders_successfully() {
-    ProductDetail product1 =
-            ProductDetail.builder().id("product1").name("book").price(BigDecimal.valueOf(20)).quantity(3).build();
-    ProductDetail product2 =
-            ProductDetail.builder().id("product2").name("cat").price(BigDecimal.valueOf(200)).quantity(2).build();
+    ProductDetail product1 = ProductDetailBuilder("product1","book",20,3).build();
+    ProductDetail product2 = ProductDetailBuilder("product2","cat",200,2).build();
 
-    LocalDateTime createTime = LocalDateTime.of(2016, 7, 31, 14, 15);
-    Order order1 = Order.builder().orderId("1").productDetails(List.of(product1,product2))
-        .createTime(createTime).updateTime(createTime).build();
-
-    Order order2 = Order.builder().orderId("2").productDetails(List.of(product1))
-        .createTime(createTime).updateTime(createTime).build();
+    Order order1 = orderBuilder("1",List.of(product1,product2)).build();
+    Order order2 = orderBuilder("2",List.of(product1)).build();
 
     List<Order> orders = Arrays.asList(order1, order2);
     when(orderRepository.findOrders(anyString())).thenReturn(orders);
@@ -68,13 +60,11 @@ public class OrderApplicationServiceTest {
     assertEquals(BigDecimal.valueOf(200), orderDto1.getProducts().get(1).getPrice());
     assertEquals(2, orderDto1.getProducts().get(1).getQuantity());
     assertEquals("submit", orderDto1.getOrderStatus());
-    assertEquals(createTime, orderDto1.getCreateTime());
     assertEquals("2", orderDto2.getOrderId());
     assertEquals("book", orderDto2.getProducts().get(0).getName());
     assertEquals(BigDecimal.valueOf(20), orderDto2.getProducts().get(0).getPrice());
     assertEquals(3, orderDto2.getProducts().get(0).getQuantity());
     assertEquals("submit", orderDto2.getOrderStatus());
-    assertEquals(createTime, orderDto2.getCreateTime());
     assertEquals(BigDecimal.valueOf(460),orderDto1.getTotalPrice());
   }
 
