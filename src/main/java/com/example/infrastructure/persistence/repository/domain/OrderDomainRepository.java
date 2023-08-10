@@ -33,7 +33,7 @@ public class OrderDomainRepository implements OrderRepository {
 
   @Override
   public Order findOrderById(String orderId) {
-    java.util.List<OrderPo> orderPos = jpaOrderRepository.findOrdersByOrderId(orderId);
+    List<OrderPo> orderPos = jpaOrderRepository.findOrdersByOrderId(orderId);
     if(Objects.isNull(orderPos)){
       return null;
     }
