@@ -74,13 +74,3 @@ test {
         html.enabled = true
     }
 }
-
-task installGitHooks(type: Copy) {
-    from(file("$projectDir/config/git-hook/pre-push"))
-    into { file("$projectDir/.git/hooks") }
-    fileMode 0775
-}
-
-tasks.check {
-    dependsOn("installGitHooks")
-}
