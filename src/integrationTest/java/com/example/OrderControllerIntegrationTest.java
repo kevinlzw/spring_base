@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class OrderControllerIntegrationTest extends BaseIntegrationTest {
   @Test
-  @DataSet("products.yml")
+  @DataSet(value = "products.yml", cleanBefore = true)
   @ExpectedDataSet("savedOrders.yml")
   public void save_orders_should_success() {
     given().contentType("application/json")
