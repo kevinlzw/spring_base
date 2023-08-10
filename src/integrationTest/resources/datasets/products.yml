@@ -11,3 +11,9 @@ product:
     status: INVALID
     create_time: "2023-08-07 14:50:40"
     update_time: "2023-08-07 14:50:40"
+  - id: 1234567
+    name: idksaas
+    price: null
+    status: INVALID
+    create_time: "2023-08-07 14:50:40"
+    update_time: "2023-08-07 14:50:40"

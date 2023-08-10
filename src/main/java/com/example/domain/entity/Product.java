@@ -30,6 +30,6 @@ public class Product {
   private LocalDateTime updateTime;
 
   public boolean isValid() {
-    return this.status == VALID;
+    return this.status == VALID && this.price != null;
   }
 }

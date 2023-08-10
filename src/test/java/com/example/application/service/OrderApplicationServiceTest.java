@@ -129,4 +129,21 @@ public class OrderApplicationServiceTest {
 
     assertEquals(0, productDetail.size());
   }
+
+  @Test
+  public void should_not_save_no_price_product_successfully() {
+    when(productRepository.findProducts(anyList())).thenReturn(List.of(NO_PRICE_PRODUCT));
+
+    doNothing().when(orderRepository).saveOrders(any());
+
+    service.takeOrder(SAVE_ORDER_REQUEST_DTO);
+
+    verify(orderRepository).saveOrders(captor.capture());
+
+    Order order = captor.getValue();
+
+    List<ProductDetail> productDetail = order.getProductDetails();
+
+    assertEquals(0, productDetail.size());
+  }
 }

@@ -27,6 +27,9 @@ public class ProductFixture {
   public final static Product INVALID_PRODUCT =
       new Product(PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, INVALID, null, null);
 
+  public final static Product NO_PRICE_PRODUCT =
+      new Product(PRODUCT_ID, PRODUCT_NAME, null, VALID, null, null);
+
 
   public final static ProductDetail PRODUCT_DETAIL =
       new ProductDetail(PRODUCT_ID, PRODUCT_NAME, BigDecimal.ONE, PRODUCT_QUANTITY);
