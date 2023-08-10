@@ -27,9 +27,4 @@ public class ProductDomainRepository implements ProductRepository {
   public List<Product> findProducts(List<String> productIds) {
     return processList(jpaProductRepository.findAllById(productIds), mapper::toDo);
   }
-
-  @Override
-  public Product findProduct(String productId) {
-    return jpaProductRepository.findById(productId).map(mapper::toDo).orElse(null);
-  }
 }

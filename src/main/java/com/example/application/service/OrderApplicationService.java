@@ -48,5 +48,4 @@ public class OrderApplicationService {
     orderRepository.saveOrders(order);
     return new SaveOrderResponseDto(order.getOrderId());
   }
-
 }

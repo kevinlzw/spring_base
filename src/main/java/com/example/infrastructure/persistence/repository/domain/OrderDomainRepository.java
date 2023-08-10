@@ -35,7 +35,8 @@ public class OrderDomainRepository implements OrderRepository {
 
   @Override
   public Order findOrderById(String orderId) {
-    List<ProductDetail> productDetailsList = jpaOrderRepository.findOrdersByOrderId(orderId)
+    java.util.List<OrderPo> ordersByOrderId = jpaOrderRepository.findOrdersByOrderId(orderId);
+    List<ProductDetail> productDetailsList = ordersByOrderId
         .stream().map(mapper::toProductDetail).collect(Collectors.toList());
     return Order.builder().orderId(orderId).productDetails(productDetailsList).build();
   }
