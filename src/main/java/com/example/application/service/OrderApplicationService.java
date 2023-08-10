@@ -44,8 +44,7 @@ public class OrderApplicationService {
     List<String> productIds = processList(orderRequest.getProducts(), ProductRequestDto::getId);
     Map<String, Integer> productQuantity = orderRequest.getProducts().stream()
         .collect(Collectors.toMap(ProductRequestDto::getId, ProductRequestDto::getQuantity));
-    List<Product> products = productRepository.findProducts(productIds);
-    List<Product> validProducts = filterValidProducts(products);
+    List<Product> validProducts = filterValidProducts(productRepository.findProducts(productIds));
     Order order = new Order(validProducts, productQuantity, now(), orderRequest.getCustomerId());
     orderRepository.saveOrders(order);
     return new SaveOrderResponseDto(order.getOrderId());
