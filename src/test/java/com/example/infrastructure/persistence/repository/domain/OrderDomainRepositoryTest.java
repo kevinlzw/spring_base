@@ -27,6 +27,7 @@ public class OrderDomainRepositoryTest {
 
   @Mock
   private JpaOrderRepository jpaOrderRepository;
+
   @InjectMocks
   private OrderDomainRepository orderDomainRepository;
 

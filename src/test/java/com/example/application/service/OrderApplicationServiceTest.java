@@ -6,9 +6,10 @@ import com.example.domain.repository.OrderRepository;
 import com.example.domain.repository.ProductRepository;
 import com.example.presentation.vo.OrderDto;
 import com.example.presentation.vo.ProductDetailsDto;
-import com.example.presentation.vo.SaveOrderResponseDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -25,17 +26,22 @@ import static com.example.application.service.common.ProductFixture.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderApplicationServiceTest {
   @Mock
   private OrderRepository orderRepository;
+
   @Mock
   private ProductRepository productRepository;
+
   @InjectMocks
   private OrderApplicationService service;
 
+  @Captor
+  private ArgumentCaptor<Order> captor;
 
   @Test
   void should_get_orders_successfully() {
@@ -92,10 +98,19 @@ public class OrderApplicationServiceTest {
   public void should_save_order_successfully() {
     when(productRepository.findProducts(anyList())).thenReturn(List.of(PRODUCT));
 
-    doNothing().when(orderRepository).saveOrders(ORDER);
+    doNothing().when(orderRepository).saveOrders(any());
 
-    SaveOrderResponseDto response = service.takeOrder(SAVE_ORDER_REQUEST_DTO);
+    service.takeOrder(SAVE_ORDER_REQUEST_DTO);
 
-    assertEquals(ORDER_ID, response.getOrderId());
+    verify(orderRepository).saveOrders(captor.capture());
+
+    Order order = captor.getValue();
+
+    ProductDetail productDetail = order.getProductDetails().get(0);
+
+    assertEquals(PRODUCT.getId(), productDetail.getId());
+    assertEquals(PRODUCT.getName(), productDetail.getName());
+    assertEquals(PRODUCT.getPrice(), productDetail.getPrice());
+    assertEquals(32, productDetail.getQuantity());
   }
 }
