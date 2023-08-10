@@ -3,6 +3,7 @@ package com.example.application.service.common;
 import com.example.domain.entity.Product;
 import com.example.domain.entity.ProductDetail;
 import com.example.domain.entity.ProductStatus;
+import com.example.presentation.vo.ProductDetailsDto;
 import com.example.presentation.vo.ProductRequestDto;
 
 import java.math.BigDecimal;
@@ -28,4 +29,7 @@ public class ProductFixture {
   public static ProductDetail.ProductDetailBuilder ProductDetailBuilder (String id, String name, Integer price, Integer quantity){
     return ProductDetail.builder().id(id).name(name).price(BigDecimal.valueOf(price)).quantity(quantity);
   }
+
+  public final static ProductDetailsDto PRODUCT_DETAIL_DTO =
+          new ProductDetailsDto(PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_QUANTITY);
 }
