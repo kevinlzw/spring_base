@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @AllArgsConstructor
@@ -26,6 +27,7 @@ public class OrderController {
   private final OrderApplicationService orderApplicationService;
 
   @GetMapping("/{id}")
+  @ResponseStatus(OK)
   public OrderDto getOrderDetails(@PathVariable String id, @RequestParam String customerId) {
     return orderApplicationService.getOrderByOrderId(id);
   }
