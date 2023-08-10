@@ -9,6 +9,7 @@ import com.example.infrastructure.persistence.repository.JpaOrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.function.Function;
@@ -42,15 +43,19 @@ public class OrderDomainRepository implements OrderRepository {
     jpaOrderRepository.saveAll(orderPos);
   }
 
-  private static Function<Entry<String, List<ProductDetail>>, Order> getOrder(List<OrderPo> ordersByCustomerId) {
-    return entry -> Order.builder().orderId(entry.getKey()).productDetails(entry.getValue())
-            .createTime(ordersByCustomerId
-                    .stream().filter(order -> entry.getKey().equals(order.getOrderId())).findFirst()
-                    .map(OrderPo::getCreateTime).orElse(null))
-            .updateTime(ordersByCustomerId.stream()
-                    .filter(order -> entry.getKey().equals(order.getOrderId())).findFirst()
-                    .map(OrderPo::getUpdateTime).orElse(null))
-            .build();
+  private static Function<Entry<String, List<ProductDetail>>, Order> getOrder(
+      List<OrderPo> ordersByCustomerId) {
+    return entry -> {
+      var orderPo = ordersByCustomerId.stream()
+          .filter(order -> entry.getKey().equals(order.getOrderId())).findFirst();
+
+      LocalDateTime createTime = orderPo.map(OrderPo::getCreateTime).orElse(null);
+      LocalDateTime updateTime = orderPo.map(OrderPo::getUpdateTime).orElse(null);
+
+      return Order.builder().orderId(entry.getKey()).productDetails(entry.getValue())
+          .createTime(createTime).updateTime(updateTime).build();
+    };
   }
+
 
 }

@@ -35,15 +35,13 @@ public class OrderControllerIntegrationTest extends BaseIntegrationTest {
         .body("[1].totalPrice.toString()", equalTo("110.0"));
   }
 
-    @Test
-    @DataSet("orders.yml")
-    public void get_order_details_should_success() {
-        String customerId = "12345";
-        String orderId = "1";
+  @Test
+  @DataSet("orders.yml")
+  public void get_order_details_should_success() {
+    String customerId = "12345";
+    String orderId = "1";
 
-        given().param("id",orderId,"customerId",customerId)
-                .when().get("/orders/{id}?customerId={customerId}",orderId,customerId)
-                .then()
-                .statusCode(200);
-    }
+    given().param("id", orderId, "customerId", customerId).when()
+        .get("/orders/{id}?customerId={customerId}", orderId, customerId).then().statusCode(200);
+  }
 }
