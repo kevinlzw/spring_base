@@ -85,7 +85,7 @@ public class OrderDomainRepositoryTest {
     orderPo.setQuantity(3);
     orderPo.setCreateTime(createTime);
     when(jpaOrderRepository.findOrdersByOrderId(anyString()))
-            .thenReturn(Collections.singletonList(orderPo));
+        .thenReturn(Collections.singletonList(orderPo));
 
     Order order = orderDomainRepository.findOrderById("1");
 

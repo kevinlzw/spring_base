@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static com.example.common.util.StreamUtil.processList;
 
@@ -34,16 +33,16 @@ public class OrderDomainRepository implements OrderRepository {
   @Override
   public Order findOrderById(String orderId) {
     List<OrderPo> orderPos = jpaOrderRepository.findOrdersByOrderId(orderId);
-    if(Objects.isNull(orderPos)){
+    if (Objects.isNull(orderPos)) {
       return null;
     }
     OrderPo orderPo = orderPos.get(0);
     LocalDateTime createTime = orderPo.getCreateTime();
     LocalDateTime updateTime = orderPo.getUpdateTime();
 
-    List<ProductDetail> productDetailsList =
-            orderPos.stream().map(mapper::toProductDetail).collect(Collectors.toList());
-    return Order.builder().orderId(orderId).createTime(createTime).updateTime(updateTime).productDetails(productDetailsList).build();
+    List<ProductDetail> productDetailsList = processList(orderPos, mapper::toProductDetail);
+    return Order.builder().orderId(orderId).createTime(createTime).updateTime(updateTime)
+        .productDetails(productDetailsList).build();
   }
 
   @Override
