@@ -12,6 +12,7 @@ import com.example.presentation.vo.SaveOrderResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,7 +30,9 @@ public class OrderApplicationService {
   private final OrderDtoMapper mapper = OrderDtoMapper.MAPPER;
 
   public List<OrderDto> getOrderList(String customerId) {
-    return processList(orderRepository.findOrders(customerId), mapper::toDto);
+    List<Order> orders = orderRepository.findOrders(customerId);
+    orders.sort(Comparator.comparing(Order::getUpdateTime).reversed());
+    return processList(orders, mapper::toDto);
   }
 
   public OrderDto getOrderByOrderId(String orderId) {

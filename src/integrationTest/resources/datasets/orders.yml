@@ -8,3 +8,21 @@ customer_order:
     product_quantity: 5
     create_time: "2023-08-07 14:50:40"
     update_time: "2023-08-07 14:50:40"
+  - id: 2
+    order_id: 1
+    customer_id: 12345
+    product_id: 2
+    product_name: book
+    product_price: 10.00
+    product_quantity: 1
+    create_time: "2023-08-07 14:50:40"
+    update_time: "2023-08-07 14:50:40"
+  - id: 3
+    order_id: 2
+    customer_id: 12345
+    product_id: 1
+    product_name: idk
+    product_price: 20.00
+    product_quantity: 5
+    create_time: "2023-08-08 14:50:40"
+    update_time: "2023-08-08 14:50:40"
