@@ -10,7 +10,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map.Entry;
+import java.util.function.Function;
+
+import static com.example.common.util.StreamUtil.processList;
 
 @Component
 @AllArgsConstructor
@@ -21,29 +24,33 @@ public class OrderDomainRepository implements OrderRepository {
   @Override
   public List<Order> findOrders(String customerId) {
     List<OrderPo> ordersByCustomerId = jpaOrderRepository.findOrdersByCustomerId(customerId);
-    return mapper.groupOrderPoByOrderId(ordersByCustomerId).entrySet().stream()
-        .map(entry -> Order.builder().orderId(entry.getKey()).productDetails(entry.getValue())
-            .createTime(ordersByCustomerId
-                .stream().filter(order -> entry.getKey().equals(order.getOrderId())).findFirst()
-                .map(OrderPo::getCreateTime).orElse(null))
-            .updateTime(ordersByCustomerId.stream()
-                .filter(order -> entry.getKey().equals(order.getOrderId())).findFirst()
-                .map(OrderPo::getUpdateTime).orElse(null))
-            .build())
-        .collect(Collectors.toList());
+    var entries = mapper.groupOrderPoByOrderId(ordersByCustomerId).entrySet();
+    return processList(entries, getOrder(ordersByCustomerId));
   }
 
   @Override
   public Order findOrderById(String orderId) {
-    java.util.List<OrderPo> ordersByOrderId = jpaOrderRepository.findOrdersByOrderId(orderId);
-    List<ProductDetail> productDetailsList =
-        ordersByOrderId.stream().map(mapper::toProductDetail).collect(Collectors.toList());
+    List<OrderPo> ordersByOrderId = jpaOrderRepository.findOrdersByOrderId(orderId);
+    List<ProductDetail> productDetailsList = processList(ordersByOrderId, mapper::toProductDetail);
     return Order.builder().orderId(orderId).productDetails(productDetailsList).build();
   }
 
   @Override
   public void saveOrders(Order order) {
-    jpaOrderRepository.saveAll(mapper.toPo(order));
+    List<OrderPo> orderPos = processList(order.getProductDetails(),
+        productDetail -> mapper.toOrderPo(order, productDetail));
+    jpaOrderRepository.saveAll(orderPos);
+  }
+
+  private static Function<Entry<String, List<ProductDetail>>, Order> getOrder(List<OrderPo> ordersByCustomerId) {
+    return entry -> Order.builder().orderId(entry.getKey()).productDetails(entry.getValue())
+            .createTime(ordersByCustomerId
+                    .stream().filter(order -> entry.getKey().equals(order.getOrderId())).findFirst()
+                    .map(OrderPo::getCreateTime).orElse(null))
+            .updateTime(ordersByCustomerId.stream()
+                    .filter(order -> entry.getKey().equals(order.getOrderId())).findFirst()
+                    .map(OrderPo::getUpdateTime).orElse(null))
+            .build();
   }
 
 }

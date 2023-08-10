@@ -33,7 +33,7 @@ public class OrderController {
   }
 
   @GetMapping
-  public List<OrderDto> getOrderList(@RequestParam("customerId") String customerId) {
+  public List<OrderDto> getOrderList(@RequestParam String customerId) {
     return orderApplicationService.getOrderList(customerId);
   }
 

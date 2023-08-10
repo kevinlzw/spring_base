@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.example.common.util.StreamUtil.processList;
 import static org.mapstruct.factory.Mappers.getMapper;
 
 @Mapper(unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE)
@@ -29,11 +28,6 @@ public interface OrderDataMapper {
   @Mapping(source = "productDetail.price", target = "price")
   @Mapping(source = "productDetail.quantity", target = "quantity")
   OrderPo toOrderPo(Order order, ProductDetail productDetail);
-
-  default List<OrderPo> toPo(Order order) {
-    return processList(order.getProductDetails(), productDetail -> toOrderPo(order, productDetail));
-  }
-
 
   @Mapping(source = "productId", target = "id")
   ProductDetail toProductDetail(OrderPo orderPo);
